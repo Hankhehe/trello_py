@@ -38,7 +38,7 @@ field_plugin_ID = '5e2212c3ba57415ef2ef9352'
 cardDatas, memberDatas = {},{}
 querypaths = {'sales':{'boardID':salesboardID,'listIDs':[list_POC_ID]},'after':{'boardID':afterboardID,'listIDs':[list_accepting,warranty]}}
 
-with open('APIkey_Hank.json','r',encoding='UTF-8') as f: 
+with open('APIkey.json','r',encoding='UTF-8') as f: 
     APIData = json.load(f)   
 client = TrelloClient(api_key = APIData['api_key'],api_secret = APIData['api_secret'],token = APIData['token'])
 
@@ -59,4 +59,5 @@ for listID in cardDatas :
 
 for member in memberDatas:
     memberDatas[member]['score'] =  SumCardScore(memberDatas[member]['cards'])
-    print(f'{memberDatas[member]["fullname"]} : {memberDatas[member]["score"]} 分')
+    memberDatas[member]['count'] = len(memberDatas[member]['cards'])
+    print(f'{memberDatas[member]["fullname"]} : {memberDatas[member]["score"]} 分, 客戶數 : {memberDatas[member]["count"]}')

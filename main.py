@@ -24,11 +24,6 @@ def SumCardScore(Cards:list) ->int:
                     score += plugindata['__CFT_DATA__'][i]['v']
     return score
 
-# TrelloData = GetTrelloID()
-# with open('TrelloData.json','w',encoding='utf-8') as f : 
-#     f.write(json.dumps(TrelloData,indent=4,ensure_ascii=False))
-# pass
-
 salesboardID = '5996b01969c3b441685697eb'
 afterboardID = '5ade989000aa0143ea3d0c67'
 list_POC_ID = {'ID':'5d80b7ff69198078833b5d1e'} # POC 測試中
@@ -42,10 +37,12 @@ with open('APIkey.json','r',encoding='UTF-8') as f:
     APIData = json.load(f)   
 client = TrelloClient(api_key = APIData['api_key'],api_secret = APIData['api_secret'],token = APIData['token'])
 
+# with open('TrelloData.json','w',encoding='utf-8') as f : 
+#     f.write(json.dumps(GetTrelloID(),indent=4,ensure_ascii=False))
+
 for queryName in querypaths :
     board = client.get_board(querypaths[queryName]['boardID'])
-    members =board.all_members()
-    for member in members :
+    for member in board.all_members() :
         memberDatas[member.id] = {'fullname':member.full_name,'username':member.username,'cards':[],'score':0}
     for listID in querypaths[queryName]['listIDs']:
         listtemp = board.get_list(listID['ID'])
